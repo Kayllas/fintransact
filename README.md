@@ -85,7 +85,20 @@ O sistema segue uma arquitetura modular:
 4. **Histórico**: Visualize o histórico de transações
 5. **Notificações Assíncronas**: Verifique os logs do `notification-service` para ver os eventos processados
 
-### 📂 Estrutura do Projeto
+### � Screenshots
+
+| Login | Dashboard |
+|-------|-----------|
+| ![Login](https://via.placeholder.com/400x300?text=Tela+de+Login) | ![Dashboard](https://via.placeholder.com/400x300?text=Dashboard) |
+
+### 📚 Documentação da API
+
+A documentação da API está disponível via Swagger UI quando a aplicação estiver rodando localmente:
+
+- **Swagger UI**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- **OpenAPI JSON**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+
+### �📂 Estrutura do Projeto
 
 ```
 fintransact/
@@ -183,7 +196,20 @@ The system follows a modular architecture:
 4. **History**: View transaction history
 5. **Async Notifications**: Check `notification-service` logs to see processed events
 
-### 📂 Project Structure
+### � Screenshots
+
+| Login | Dashboard |
+|-------|-----------|
+| ![Login](https://via.placeholder.com/400x300?text=Login+Screen) | ![Dashboard](https://via.placeholder.com/400x300?text=Dashboard+Screen) |
+
+### 📚 API Documentation
+
+The API documentation is available via Swagger UI when running the application locally:
+
+- **Swagger UI**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- **OpenAPI JSON**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+
+### �📂 Project Structure
 
 ```
 fintransact/

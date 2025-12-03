@@ -5,9 +5,6 @@ backend/**/*.jar
 backend/**/*.war
 backend/**/*.ear
 backend/**/*.log
-backend/**/.mvn/
-backend/**/mvnw
-backend/**/mvnw.cmd
 
 # IDE
 .idea/
