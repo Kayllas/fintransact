@@ -1,0 +1,30 @@
+<div class="flex align-items-center justify-content-center min-h-screen bg-blue-50">
+    <p-card header="Login" [style]="{width: '360px'}" styleClass="shadow-4">
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <div class="field">
+                <label for="email" class="block">Email</label>
+                <input type="text" pInputText id="email" name="email" [(ngModel)]="form.email" required #email="ngModel" class="w-full" />
+                <div *ngIf="email.errors && f.submitted" class="text-red-500 text-sm mt-1">
+                    Email is required!
+                </div>
+            </div>
+            <div class="field mt-3">
+                <label for="password" class="block">Password</label>
+                <input type="password" pInputText id="password" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" class="w-full" />
+                <div *ngIf="password.errors && f.submitted" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="password.errors['required']">Password is required</div>
+                    <div *ngIf="password.errors['minlength']">Password must be at least 6 characters</div>
+                </div>
+            </div>
+            <div class="field mt-4">
+                <button pButton pRipple label="Login" class="w-full" type="submit"></button>
+            </div>
+            <div class="text-center mt-3">
+                <a routerLink="/register" class="text-blue-500 no-underline hover:underline">Create an account</a>
+            </div>
+            <div *ngIf="f.submitted && isLoginFailed" class="mt-3">
+                <div class="text-red-500 text-center">{{ errorMessage }}</div>
+            </div>
+        </form>
+    </p-card>
+</div>
