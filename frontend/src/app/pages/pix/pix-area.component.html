@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="flex justify-content-center mb-4">
+        <div class="p-buttongroup">
+            <button pButton label="Transferir" [class.p-button-outlined]="activeTab !== 'transfer'"
+                (click)="activeTab = 'transfer'"></button>
+            <button pButton label="Minhas Chaves" [class.p-button-outlined]="activeTab !== 'keys'"
+                (click)="activeTab = 'keys'"></button>
+        </div>
+    </div>
+
+    <div *ngIf="activeTab === 'transfer'">
+        <app-pix-transfer></app-pix-transfer>
+    </div>
+
+    <div *ngIf="activeTab === 'keys'">
+        <app-pix-keys></app-pix-keys>
+    </div>
+</div>

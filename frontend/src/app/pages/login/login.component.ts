@@ -28,6 +28,13 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.authService.login(this.form).subscribe(
       data => {
+        if (data.message === '2FA Required') {
+          this.isLoginFailed = false;
+          this.errorMessage = 'Please enter your 2FA code';
+          this.form.requires2fa = true;
+          return;
+        }
+
         this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
 

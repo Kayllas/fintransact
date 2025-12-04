@@ -1,0 +1,63 @@
+<div class="landing-container">
+    <!-- Hero Section -->
+    <div class="hero surface-section px-4 py-8 md:px-6 lg:px-8 text-center">
+        <div class="mb-3 font-bold text-2xl">
+            <span class="text-900">FinTransact</span>
+        </div>
+        <div class="text-6xl font-bold text-900 mb-3">The Future of Finance</div>
+        <div class="text-6xl text-primary font-bold mb-3">is Here</div>
+        <p class="mt-0 mb-4 text-700 line-height-3 text-xl">Manage your accounts, make instant Pix transfers, and secure
+            your assets with 2FA.</p>
+
+        <button pButton pRipple label="Get Started" class="p-button-rounded text-xl px-5 py-3 mr-3"
+            (click)="navigateTo('/register')" *ngIf="!isLoggedIn"></button>
+        <button pButton pRipple label="Login" class="p-button-rounded p-button-outlined text-xl px-5 py-3"
+            (click)="navigateTo('/login')" *ngIf="!isLoggedIn"></button>
+        <button pButton pRipple label="Go to Dashboard" class="p-button-rounded text-xl px-5 py-3"
+            (click)="navigateTo('/dashboard')" *ngIf="isLoggedIn"></button>
+    </div>
+
+    <!-- Features Section -->
+    <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+        <div class="grid">
+            <div class="col-12 md:col-4 mb-4 px-5">
+                <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                    <i class="pi pi-bolt text-4xl text-blue-500"></i>
+                </span>
+                <div class="text-900 mb-3 font-medium">Instant Pix</div>
+                <span class="text-700 line-height-3">Send and receive money instantly using email, CPF, or random
+                    keys.</span>
+            </div>
+            <div class="col-12 md:col-4 mb-4 px-5">
+                <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                    <i class="pi pi-lock text-4xl text-blue-500"></i>
+                </span>
+                <div class="text-900 mb-3 font-medium">Secure 2FA</div>
+                <span class="text-700 line-height-3">Protect your account with Time-based One-Time Password (TOTP)
+                    authentication.</span>
+            </div>
+            <div class="col-12 md:col-4 mb-4 px-5">
+                <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                    <i class="pi pi-chart-line text-4xl text-blue-500"></i>
+                </span>
+                <div class="text-900 mb-3 font-medium">Real-time Tracking</div>
+                <span class="text-700 line-height-3">Monitor your balance and transaction history with a beautiful
+                    dashboard.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tech Stack / Footer -->
+    <div class="surface-section px-4 py-8 md:px-6 lg:px-8 text-center border-top-1 surface-border">
+        <div class="text-900 font-bold text-2xl mb-4">Powered By</div>
+        <div class="flex flex-wrap justify-content-center gap-4">
+            <span class="p-tag p-tag-rounded p-tag-info text-xl px-3 py-2">Spring Boot</span>
+            <span class="p-tag p-tag-rounded p-tag-danger text-xl px-3 py-2">Angular</span>
+            <span class="p-tag p-tag-rounded p-tag-warning text-xl px-3 py-2">PostgreSQL</span>
+            <span class="p-tag p-tag-rounded p-tag-success text-xl px-3 py-2">Docker</span>
+        </div>
+        <div class="mt-8 text-600">
+            &copy; 2025 FinTransact by Kayque Castro. All rights reserved.
+        </div>
+    </div>
+</div>

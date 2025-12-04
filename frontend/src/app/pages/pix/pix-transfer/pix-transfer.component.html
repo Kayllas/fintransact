@@ -1,0 +1,40 @@
+<div class="p-fluid">
+    <!-- Step 1: Enter Key -->
+    <div *ngIf="step === 1">
+        <h3>Step 1: Enter Pix Key</h3>
+        <div class="field">
+            <label for="targetKey">Pix Key</label>
+            <input type="text" pInputText id="targetKey" [(ngModel)]="targetKey"
+                placeholder="Email, CPF, or Random Key" />
+        </div>
+        <button pButton label="Continue" (click)="lookupKey()" [disabled]="!targetKey"></button>
+    </div>
+
+    <!-- Step 2: Confirm & Amount -->
+    <div *ngIf="step === 2">
+        <h3>Step 2: Confirm Transfer</h3>
+        <div class="mb-3">
+            <span class="font-bold">Transfer to:</span> {{ targetName }}
+        </div>
+        <div class="field">
+            <label for="amount">Amount</label>
+            <input type="number" pInputText id="amount" [(ngModel)]="amount" />
+        </div>
+        <div class="flex gap-2">
+            <button pButton label="Cancel" class="p-button-secondary" (click)="reset()"></button>
+            <button pButton label="Confirm Transfer" (click)="confirmTransfer()" [disabled]="amount <= 0"></button>
+        </div>
+    </div>
+
+    <!-- Step 3: Success -->
+    <div *ngIf="step === 3" class="text-center">
+        <i class="pi pi-check-circle text-green-500 text-5xl mb-3"></i>
+        <h3>Transfer Successful!</h3>
+        <p>{{ message }}</p>
+        <button pButton label="New Transfer" (click)="reset()"></button>
+    </div>
+
+    <div *ngIf="message && step !== 3" class="mt-3" [ngClass]="{'text-red-500': isError, 'text-green-500': !isError}">
+        {{ message }}
+    </div>
+</div>

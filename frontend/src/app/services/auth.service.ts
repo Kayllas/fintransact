@@ -18,7 +18,8 @@ export class AuthService {
   login(credentials: any): Observable<any> {
     return this.http.post(AUTH_API + 'signin', {
       email: credentials.email,
-      password: credentials.password
+      password: credentials.password,
+      code: credentials.code
     }, httpOptions);
   }
 
@@ -28,5 +29,13 @@ export class AuthService {
       email: user.email,
       password: user.password
     }, httpOptions);
+  }
+
+  setup2fa(): Observable<any> {
+    return this.http.post(AUTH_API + 'setup-2fa', {}, httpOptions);
+  }
+
+  verify2fa(code: string): Observable<any> {
+    return this.http.post(AUTH_API + 'verify-2fa', { code }, httpOptions);
   }
 }

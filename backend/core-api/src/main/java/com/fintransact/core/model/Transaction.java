@@ -36,4 +36,7 @@ public class Transaction {
     private TransactionType type;
 
     private LocalDateTime timestamp;
+
+    @Column(name = "reference_id")
+    private String referenceId;
 }

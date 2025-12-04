@@ -9,6 +9,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { PixAreaComponent } from './pages/pix/pix-area.component';
+import { PixKeysComponent } from './pages/pix/pix-keys/pix-keys.component';
+import { PixTransferComponent } from './pages/pix/pix-transfer/pix-transfer.component';
+import { LandingComponent } from './pages/landing/landing.component';
 
 // PrimeNG Imports
 import { InputTextModule } from 'primeng/inputtext';
@@ -25,7 +30,14 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    RegisterComponent,
+    DashboardComponent,
+    DashboardComponent,
+    SettingsComponent,
+    PixAreaComponent,
+    PixKeysComponent,
+    PixTransferComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,

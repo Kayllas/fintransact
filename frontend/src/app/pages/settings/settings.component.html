@@ -1,0 +1,32 @@
+<div class="card">
+    <h2>Security Settings</h2>
+
+    <div class="p-4 border-1 surface-border border-round">
+        <h3>Two-Factor Authentication (2FA)</h3>
+        <p>Protect your account with an extra layer of security.</p>
+
+        <div *ngIf="!qrCodeUrl && !is2faEnabled">
+            <button pButton label="Enable 2FA" (click)="setup2fa()"></button>
+        </div>
+
+        <div *ngIf="qrCodeUrl" class="mt-3">
+            <p>1. Scan this QR Code with Google Authenticator:</p>
+            <img [src]="qrCodeUrl" alt="QR Code" class="mb-3" />
+
+            <p>2. Enter the code from the app:</p>
+            <div class="field">
+                <input type="text" pInputText [(ngModel)]="code" placeholder="123456" maxlength="6" />
+            </div>
+
+            <button pButton label="Verify & Activate" (click)="verify2fa()" [disabled]="code.length !== 6"></button>
+        </div>
+
+        <div *ngIf="message" class="mt-3" [ngClass]="{'text-red-500': isError, 'text-green-500': !isError}">
+            {{ message }}
+        </div>
+
+        <div *ngIf="is2faEnabled" class="mt-3 text-green-500 font-bold">
+            <i class="pi pi-check-circle"></i> 2FA is currently enabled.
+        </div>
+    </div>
+</div>

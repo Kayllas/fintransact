@@ -26,4 +26,11 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Builder.Default
+    @Column(name = "is_2fa_enabled")
+    private boolean isTwoFactorEnabled = false;
+
+    @Column(name = "two_factor_secret")
+    private String twoFactorSecret;
 }

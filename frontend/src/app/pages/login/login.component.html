@@ -3,17 +3,28 @@
         <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <div class="field">
                 <label for="email" class="block">Email</label>
-                <input type="text" pInputText id="email" name="email" [(ngModel)]="form.email" required #email="ngModel" class="w-full" />
+                <input type="text" pInputText id="email" name="email" [(ngModel)]="form.email" required #email="ngModel"
+                    class="w-full" />
                 <div *ngIf="email.errors && f.submitted" class="text-red-500 text-sm mt-1">
                     Email is required!
                 </div>
             </div>
             <div class="field mt-3">
                 <label for="password" class="block">Password</label>
-                <input type="password" pInputText id="password" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" class="w-full" />
+                <input type="password" pInputText id="password" name="password" [(ngModel)]="form.password" required
+                    minlength="6" #password="ngModel" class="w-full" />
                 <div *ngIf="password.errors && f.submitted" class="text-red-500 text-sm mt-1">
                     <div *ngIf="password.errors['required']">Password is required</div>
                     <div *ngIf="password.errors['minlength']">Password must be at least 6 characters</div>
+                </div>
+            </div>
+            <div class="field mt-3" *ngIf="form.requires2fa">
+                <label for="code" class="block">2FA Code</label>
+                <input type="text" pInputText id="code" name="code" [(ngModel)]="form.code" required minlength="6"
+                    maxlength="6" #code="ngModel" class="w-full" />
+                <div *ngIf="code.errors && f.submitted" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="code.errors['required']">Code is required</div>
+                    <div *ngIf="code.errors['minlength']">Code must be 6 digits</div>
                 </div>
             </div>
             <div class="field mt-4">
