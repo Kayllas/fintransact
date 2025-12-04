@@ -4,7 +4,7 @@ services:
     name: fintransact-backend
     env: docker
     dockerContext: ./backend/core-api
-    dockerfilePath: ./backend/core-api/Dockerfile
+    dockerfilePath: Dockerfile
     plan: free
     region: oregon
     envVars:
