@@ -1,5 +1,9 @@
 package com.fintransact.core.service;
 
+import com.fintransact.core.exception.InsufficientBalanceException;
+import com.fintransact.core.exception.PixKeyAlreadyExistsException;
+import com.fintransact.core.exception.ResourceNotFoundException;
+
 import com.fintransact.core.model.Account;
 import com.fintransact.core.model.PixKey;
 import com.fintransact.core.model.Transaction;
@@ -32,11 +36,11 @@ public class PixService {
 
     public PixKey createKey(User user, String key, PixKeyType type) {
         if (pixKeyRepository.existsByKey(key)) {
-            throw new RuntimeException("Pix Key already exists");
+            throw new PixKeyAlreadyExistsException("Pix Key already exists");
         }
 
         Account account = accountRepository.findByUserId(user.getId())
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found"));
 
         PixKey pixKey = PixKey.builder()
                 .key(key)
@@ -49,29 +53,29 @@ public class PixService {
 
     public List<PixKey> getKeysByUser(User user) {
         Account account = accountRepository.findByUserId(user.getId())
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found"));
         return pixKeyRepository.findByAccountId(account.getId());
     }
 
     public Account getAccountByKey(String key) {
         PixKey pixKey = pixKeyRepository.findByKey(key)
-                .orElseThrow(() -> new RuntimeException("Pix Key not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Pix Key not found"));
         return pixKey.getAccount();
     }
 
     @Transactional
     public Transaction transfer(User sender, String targetKey, BigDecimal amount) {
         Account sourceAccount = accountRepository.findByUserId(sender.getId())
-                .orElseThrow(() -> new RuntimeException("Source Account not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Source Account not found"));
 
         Account targetAccount = getAccountByKey(targetKey);
 
         if (sourceAccount.getId().equals(targetAccount.getId())) {
-            throw new RuntimeException("Cannot transfer to yourself");
+            throw new IllegalArgumentException("Cannot transfer to yourself");
         }
 
         if (sourceAccount.getBalance().compareTo(amount) < 0) {
-            throw new RuntimeException("Insufficient balance");
+            throw new InsufficientBalanceException("Insufficient balance");
         }
 
         // Debit source

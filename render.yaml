@@ -1,0 +1,72 @@
+services:
+  # Backend Service (Docker)
+  - type: web
+    name: fintransact-backend
+    env: docker
+    dockerContext: ./backend/core-api
+    dockerfilePath: ./backend/core-api/Dockerfile
+    plan: free
+    region: oregon
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: fintransact-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: fintransact-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: fintransact-db
+          property: password
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SPRING_RABBITMQ_HOST
+        value: rabbitmq # Placeholder if we don't deploy RabbitMQ on Render Free (it's expensive/hard on free tier). 
+                        # For now, we might skip RabbitMQ or use an external provider. 
+                        # Let's assume for this demo we might disable RabbitMQ or use an in-memory mock if possible, 
+                        # but since we added it, let's leave it as a placeholder or remove the dependency if strictly needed for startup.
+                        # Actually, the app might fail to start without RabbitMQ.
+                        # Render doesn't have a managed RabbitMQ in the free tier easily.
+                        # We will comment this out and note in DEPLOY.md that RabbitMQ is required or needs an external URL.
+                        # For simplicity of the "Quick Win", maybe we just deploy DB + Backend + Frontend.
+                        # If the app fails without RabbitMQ, we might need to adjust.
+                        # Let's assume the user might use CloudAMQP (free tier) and set the URL manually.
+      - key: SPRING_RABBITMQ_HOST
+        sync: false # User must provide this
+      - key: SPRING_RABBITMQ_PORT
+        value: 5672
+      - key: SPRING_RABBITMQ_USERNAME
+        sync: false
+      - key: SPRING_RABBITMQ_PASSWORD
+        sync: false
+
+  # Frontend Service (Static Site)
+  - type: web
+    name: fintransact-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist/fintransact
+    plan: free
+    region: oregon
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: API_URL
+        fromService:
+          type: web
+          name: fintransact-backend
+          property: url
+
+databases:
+  - name: fintransact-db
+    databaseName: fintransact
+    user: fintransact_user
+    plan: free
+    region: oregon
+
+# Note: RabbitMQ is not included as a managed service in Render's free tier blueprint easily.
+# Users should use an external provider like CloudAMQP and set env vars.
