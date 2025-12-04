@@ -45,7 +45,7 @@ services:
   # Frontend Service (Static Site)
   - type: web
     name: fintransact-frontend
-    #env: static
+    env: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/dist/fintransact
 
