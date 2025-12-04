@@ -10,6 +10,7 @@ import com.fintransact.core.payload.response.MessageResponse;
 import com.fintransact.core.payload.response.TwoFactorSetupResponse;
 import com.fintransact.core.repository.AccountRepository;
 
+import com.fintransact.core.exception.UserAlreadyExistsException;
 import com.fintransact.core.repository.UserRepository;
 import com.fintransact.core.security.jwt.JwtUtils;
 import com.fintransact.core.security.services.UserDetailsImpl;
@@ -133,16 +134,21 @@ public class AuthController {
 
         @PostMapping("/signup")
         public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+                // Check for duplicate email
                 if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-                        return ResponseEntity
-                                        .badRequest()
-                                        .body(new MessageResponse("Error: Email is already in use!"));
+                        throw new UserAlreadyExistsException("Email is already in use");
+                }
+
+                // Check for duplicate CPF
+                if (userRepository.existsByCpf(signUpRequest.getCpf())) {
+                        throw new UserAlreadyExistsException("CPF is already registered");
                 }
 
                 // Create new user's account
                 User user = User.builder()
                                 .name(signUpRequest.getName())
                                 .email(signUpRequest.getEmail())
+                                .cpf(signUpRequest.getCpf())
                                 .password(encoder.encode(signUpRequest.getPassword()))
                                 .build();
 

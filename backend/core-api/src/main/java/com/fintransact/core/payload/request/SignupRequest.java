@@ -17,6 +17,10 @@ public class SignupRequest {
     private String email;
 
     @NotBlank
+    @Size(min = 11, max = 14, message = "CPF must be 11-14 characters (with or without formatting)")
+    private String cpf;
+
+    @NotBlank
     @Size(min = 6, max = 40)
     private String password;
 }
